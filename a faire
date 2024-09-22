@@ -18,6 +18,12 @@ mlx_destroy_window: Frees the window instance.
 
 mlx_destroy_display: Frees MLX.
 
+The map can be composed of only these 5 characters:
+0 for an empty space,
+1 for a wall,
+C for a collectible,
+E for a map exit,
+P for the player’s starting position.
 
 1. initialisation de map + checking de map;
 2. initialisation de la mlx;

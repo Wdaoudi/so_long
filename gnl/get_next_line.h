@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:01:59 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/20 10:13:16 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:03:11 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-    size_t	ft_strlen(const char *str);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

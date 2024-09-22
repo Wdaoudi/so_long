@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:39 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/07/09 18:11:21 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:29:28 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,29 @@ char	*get_next_line(int fd)
 	string = ft_save(string);
 	return (line);
 }
+
+// int main()
+// {
+//     int fd;
+//     char *line;
+
+//     // Ouvrir un fichier
+//     fd = open("maps.ber", O_RDONLY);
+//     if (fd == -1)
+//     {
+//         printf("Erreur lors de l'ouverture du fichier\n");
+//         return 1;
+//     }
+
+//     // Lire et afficher chaque ligne
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s", line);
+//         free(line);  // N'oubliez pas de libérer la mémoire allouée par get_next_line
+//     }
+
+//     // Fermer le fichier
+//     close(fd);
+
+//     return 0;
+// }

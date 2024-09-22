@@ -12,15 +12,24 @@ OBJS = $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix  $(OBJS_DIR), $(OBJS))
 
 CC = cc
+
 CC_FLAGS = -Wall -Werror -Wextra -g3
-CC_FLAGS2 = -Wall -Werror -Wextra -g3
+
+MLX_FLAGS = -Lmlx -Imlx -lmlx -framework OpenGL -framework AppKit
 
 #ajout des chemin de compilation pour trouver les .h
 # -I indique ou chercher les entete
-# LIBFT_DIR = libft
-# LIBFT = $(LIBFT_DIR)/libft.a
-# PRINTF_DIR = printf
-# PRINTF = $(PRINTF_DIR)/printf.a
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+PRINTF_DIR = printf
+PRINTF = $(PRINTF_DIR)/printf.a
+
+$(LIBMLX) :
+			@make -C ./minilibx-linux
+
+
+$(LIBFT) : $(LIBFT_FILES)
+			@make -C $(LIBFTPATH)
 
 $(OBJS_DIR)%.o : %.c
 	@mkdir -p $(OBJS_DIR)
@@ -28,22 +37,18 @@ $(OBJS_DIR)%.o : %.c
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) $(LIBFT) $(PRINTF)
-	@$(CC) $(CC_FLAGS) $(OBJECTS_PREFIXED) -o $(NAME)
+	@$(CC) $(CC_FLAGS) $(OBJECTS_PREFIXED) $(LIBFT) $(PRINTF) -o $(NAME)
 	@echo "Push_swap Done!"
 
-$(NAME2): $(OBJECTS_PREFIXED) $(LIBFT) $(PRINTF)
-	@$(CC) $(CC_FLAGS) $(OBJECTS_PREFIXED) -o $(NAME)
-	@echo "So long Done for valgrind!"
 
 $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
-$(PRINTF):
-	@$(MAKE) -sC $(PRINTF_DIR)
+$(LIBMLX):
+	@$(MAKE) -sC $(MLX_DIR)
 
 all: $(NAME)
 
-all2: $(NAME2)
 
 clean:
 		rm -rf $(OBJS_DIR)

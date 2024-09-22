@@ -6,17 +6,18 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/22 15:11:38 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:13:39 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "./libft/libft.h"
-// # include "./printf/ft_printf.h"
-# include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+# include "../printf/ft_printf.h"
 # include "./gnl/get_next_line.h"
+# include "../minilibx-linux/mlx.h"
+
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -41,5 +42,10 @@ typedef struct s_map_state
 	int		player;
 	int		valid;
 }			t_map_info;
+
+
+//fonction gnl
+
+//check de map
 
 #endif

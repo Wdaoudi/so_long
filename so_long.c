@@ -6,9 +6,15 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/20 10:16:55 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:58:04 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "./gnl/get_next_line.h"
+
+
+int main(int ac, char **av)
+{
+    
+}

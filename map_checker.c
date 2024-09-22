@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/22 18:16:47 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:03:44 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,6 @@ void	flood_fill(t_map_info *info, int x, int y)
 	flood_fill(info, x, y - 1);
 }
 
-// int	check_path(t_map_info *info)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	collected;
-
-// 	collected = 0;
-// 	i = 0;
-// 	while (i < info->rows)
-// 	{
-// 		j = 0;
-// 		while (j < info->cols)
-// 		{
-// 			if (info->map[i][j] == 'P')
-// 			{
-// 				flood_fill(info, j, i);
-// 				return (collected == info->collectibles && info->exit == 0);
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 int	count_map_elements(t_map_info *info, t_position *pos_player)
 {
 	int	i;
@@ -130,19 +105,6 @@ int	count_map_elements(t_map_info *info, t_position *pos_player)
 	return (info->collectibles > 0 && info->exit == 1 && info->player == 1);
 }
 
-// int	check_possible(t_map_info *info)
-// {
-// 	t_position	pos_player;
-// 	int			initial_collectibles;
-
-// 	if (!count_map_elements(info, &pos_player))
-// 		return (0);
-// 	initial_collectibles = info->collectibles;
-// 	info->exit = 1;
-// 	flood_fill(info, pos_player.x, pos_player.y);
-// 	return (info->collectibles == 0 && info->exit == 0);
-// }
-
 int	check_map(t_map_info *info, char *filename)
 {
 	t_position pos_player;
@@ -157,7 +119,9 @@ int	check_map(t_map_info *info, char *filename)
     return (info->collectibles == 0 && info->exit == 0); // si tout est vrais retourne 1
 }
 
-int main()
-{
-    
-}
+// int main()
+// {
+//     if (!check_map());
+//         return (printf("map pas valid\n"),1);
+//     return (0);
+// }
