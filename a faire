@@ -17,3 +17,11 @@ mlx_destroy_image: Frees the image. // fonction de free
 mlx_destroy_window: Frees the window instance.
 
 mlx_destroy_display: Frees MLX.
+
+
+1. initialisation de map + checking de map;
+2. initialisation de la mlx;
+3. choix et selection des sprites;
+    3.1 tentative de fonctionnement ;
+    3.2 gestion erreurs debugage etc;
+4. leaks;

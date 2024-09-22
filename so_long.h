@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/22 13:23:22 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:11:38 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 // # include "./libft/libft.h"
 // # include "./printf/ft_printf.h"
-#include "./gnl/get_next_line.h"
+# include "../minilibx-linux/mlx.h"
+# include "./gnl/get_next_line.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -24,11 +25,21 @@
 # include <string.h>
 # include <unistd.h>
 
-typedef struct 	s_position {
-    int 		x;				// x : Width  | x-axis
-    int 		y;				// y : Height | y-axis
-} 				t_position;
+typedef struct s_position
+{
+	int x; // x : Width  | x-axis
+	int y; // y : Height | y-axis
+}			t_position;
 
-
+typedef struct s_map_state
+{
+	char	**map;
+	int		rows;
+	int		cols;
+	int		collectibles;
+	int		exit;
+	int		player;
+	int		valid;
+}			t_map_info;
 
 #endif
