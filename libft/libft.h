@@ -6,13 +6,14 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:28:19 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/06/05 16:10:16 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:09:35 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "get_next_line/get_next_line.h"
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -75,5 +76,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+
+/* get_next_line */
+char				*get_next_line(int fd);
 
 #endif

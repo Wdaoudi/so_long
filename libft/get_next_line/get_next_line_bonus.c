@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:39 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/22 19:29:28 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:14:54 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 
 char	*ft_line(char *string)
@@ -23,7 +23,7 @@ char	*ft_line(char *string)
 		return (NULL);
 	while (string[i] && string[i] != '\n')
 		i++;
-	tmp = ft_substr(string, 0, i + 1);
+	tmp = ft_substr_spe(string, 0, i + 1);
 	return (tmp);
 }
 
@@ -40,7 +40,7 @@ char	*ft_save(char *string)
 		free(string);
 		return (NULL);
 	}
-	tmp = ft_substr(string, i + 1, ft_strlen(string));
+	tmp = ft_substr_spe(string, i + 1, ft_strlen(string));
 	free(string);
 	return (tmp);
 }
@@ -69,40 +69,14 @@ char	*ft_read_fd(int fd, char *string)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*string;
+	static char	*string[1024];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
-	string = ft_read_fd(fd, string);
-	if (!string)
+	string[fd] = ft_read_fd(fd, string[fd]);
+	if (!string[fd])
 		return (NULL);
-	line = ft_line(string);
-	string = ft_save(string);
+	line = ft_line(string[fd]);
+	string[fd] = ft_save(string[fd]);
 	return (line);
 }
-
-// int main()
-// {
-//     int fd;
-//     char *line;
-
-//     // Ouvrir un fichier
-//     fd = open("maps.ber", O_RDONLY);
-//     if (fd == -1)
-//     {
-//         printf("Erreur lors de l'ouverture du fichier\n");
-//         return 1;
-//     }
-
-//     // Lire et afficher chaque ligne
-//     while ((line = get_next_line(fd)) != NULL)
-//     {
-//         printf("%s", line);
-//         free(line);  // N'oubliez pas de libérer la mémoire allouée par get_next_line
-//     }
-
-//     // Fermer le fichier
-//     close(fd);
-
-//     return 0;
-// }
