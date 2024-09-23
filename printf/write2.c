@@ -6,21 +6,11 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:58:44 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/07/08 14:00:09 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:47:09 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-long	ft_strlen(char *str)
-{
-	long	n;
-
-	n = 0;
-	while (str[n])
-		n++;
-	return (n);
-}
 
 int	ft_putnbrbase(long n, char *base)
 {
@@ -59,3 +49,13 @@ int	ft_putptrbase(unsigned long n, char *base)
 	count++;
 	return (count);
 }
+
+// long	ft_strlen(char *str)
+// {
+// 	long	n;
+
+// 	n = 0;
+// 	while (str[n])
+// 		n++;
+// 	return (n);
+// }

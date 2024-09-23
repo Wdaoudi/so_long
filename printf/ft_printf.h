@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:45:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/07/08 13:59:43 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:47:26 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 int		ft_printf(const char *format, ...);
 int		type(va_list args, const char c, size_t len);
 int		ptrdef(long a, char *base);
-long	ft_strlen(char *str);
 char	*ft_itoa(int n);
 int		ft_putchar(int c);
 int		ft_putstr(char *str);
@@ -32,5 +31,6 @@ int		ft_putnbr(const int n);
 int		ft_putnbrbase(long n, char *base);
 int		ft_putptrbase(unsigned long n, char *base);
 char	*ft_itoa(int n);
+// long	ft_strlen(char *str);
 
 #endif

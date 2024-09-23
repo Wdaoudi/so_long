@@ -1,52 +1,58 @@
-SRCS = get_next_line.c get_next_line_utils.c \
-	map_checker.c map_init.c \
-	so_long.c \
+CC = cc
+
+SRCS =  srcs/map_checker.c  srcs/map_init.c \
+	srcs/so_long.c \
+
+LIBFT = libft.a
+LIB_DIR = ./libft
+
+MINI_LIBX_DIR = ./minilibx-linux
+MINI_LIBX = libmlx.a
+
+OBJS_DIR = objs/
+OBJS = $(SRCS:srcs/%.c=$(OBJ_DIR)/%.o)
+
+CFLAGS = -Wall -Werror -Wextra -g3 
 
 NAME = so_long
 
-OBJS_DIR = objs/
+all : $(MINI_LIBX) $(LIBFT) $(NAME)
 
-OBJS = $(SRCS:.c=.o)
+#cree le dossier obj si il n existe pas
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
-
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -I./libft -I./mlx
-MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
-
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
-
-MLX_DIR = mlx
-MLX = $(MLX_DIR)/libmlx.a
-
-$(OBJS_DIR)%.o : %.c
-	@mkdir -p $(OBJS_DIR)
-	@echo "Compiling: $<"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME): $(OBJECTS_PREFIXED) $(LIBFT) $(MLX)
-	@$(CC) $(CFLAGS) $(OBJECTS_PREFIXED) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
-	@echo "so_long compiled!"
+#compile chaque .o dans le dossier obj
+$(OBJ_DIR)/%.o: srcs/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -sC $(LIBFT_DIR)
+	make -C ./libft
 
-$(MLX):
-	@$(MAKE) -sC $(MLX_DIR)
+$(MINI_LIBX):
+	make -C $(MINI_LIBX_DIR)
 
-all: $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -I $(INCLUDES) $(OBJS) -o $(NAME) -L$(LIB_DIR) -lft -L$(MINI_LIBX_DIR) -lmlx -lX11 -lXext
 
 clean:
-	@rm -rf $(OBJS_DIR)
-	@make clean -sC $(LIBFT_DIR)
-	@make clean -sC $(MLX_DIR)
+	rm -f $(OBJS)
+	make clean -C ./libft
+	make clean -C $(MINI_LIBX_DIR)
 
 fclean: clean
-	@rm -f $(NAME)
-	@rm -f $(LIBFT)
-	@rm -f $(MLX)
+	rm -f $(NAME)
+	make fclean -C ./libft
+	make clean -C $(MINI_LIBX_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+cleanbis:
+	rm -f $(OBJS)
+	make clean -C ./libft
+	make clean -C $(MINI_LIBX_DIR)
+
+go: re cleanbis
+	clear
+
+.PHONY: all clean fclean re cleanbis go
