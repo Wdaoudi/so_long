@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 17:37:13 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:03:11 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ int	check_walls(t_map_info *info)
 
 void	flood_fill(t_map_info *info, int x, int y)
 {
+	// creeer une copie de la map pour ne pas modifier celle de base et gerer les entree a la fin car ne pas valider tant qu on a pas fini le checking
 	if (x < 0 || y < 0 || x >= info->cols || y >= info->rows
 		|| info->map[x][y] == '1' || info->map[x][y] == 'F')
 		return ;
 	if (info->map[x][y] == 'C')
 		info->collectibles--;
-	if (info->map[x][y] == 'E')
+	if (info->map[x][y] == 'E') // 
 		info->exit = 0;
 	info->map[x][y] = 'F';
 	flood_fill(info, x + 1, y);
