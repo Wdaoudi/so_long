@@ -6,29 +6,27 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 18:01:59 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 15:15:46 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:26:38 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include "../libft.h"
+# include <fcntl.h>
+# include <stdlib.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000000
 # endif
 
-# include <fcntl.h>
-#include "../libft.h"
-# include <stdlib.h>
-# include <unistd.h>
-
-// size_t	ft_strlen(const char *str);
-// char	*ft_strchr(char *s, int c);
-// char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr_spe(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
-char	*ft_line(char *save);
-char	*ft_save(char *save);
-char	*ft_read_fd(int fd, char *save);
+char	*ft_read_to_left_str(int fd, char *left_str);
+char	*ft_get_line(char *left_str);
+char	*ft_new_left_str(char *left_str);
+char	*ft_strchr_spe(char *s, int c);
+char	*ft_strjoin_spe(char *left_str, char *buff);
+size_t	ft_strlen_spe(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/11 13:03:11 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:20:28 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_rectangular(t_map_info *info)
 	int	i;
 	int	len;
 
-	if (info->rows < 3 || info->cols < 3)
+	if (info->rows < 4 || info->cols < 4)
 		return (0);
 	len = info->cols;
 	i = 0;
@@ -67,7 +67,7 @@ void	flood_fill(t_map_info *info, int x, int y)
 		return ;
 	if (info->map[x][y] == 'C')
 		info->collectibles--;
-	if (info->map[x][y] == 'E') // 
+	if (info->map[x][y] == 'E') 
 		info->exit = 0;
 	info->map[x][y] = 'F';
 	flood_fill(info, x + 1, y);
@@ -118,11 +118,4 @@ int	check_map(t_map_info *info, char *filename)
     info->exit = 1;
     flood_fill(info,pos_player.x, pos_player.y);
     return (info->collectibles == 0 && info->exit == 0); // si tout est vrais retourne 1
-}
-
-int main()
-{
-    if (!check_map());
-        return (printf("map pas valid\n"),1);
-    return (0);
 }

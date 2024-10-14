@@ -6,14 +6,16 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 17:43:21 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:01:11 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-
-int main(int ac, char **av)
-{
-    
-}
+// int	main(void)
+// {
+// 	if (!check_map())
+// 		;
+// 	return (printf("map pas valid\n"), 1);
+// 	return (0);
+// }
