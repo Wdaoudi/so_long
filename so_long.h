@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/09/23 17:49:03 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:27:30 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_map_state
 int	check_file_exists(char *filename);
 int	check_rectangular(t_map_info *info);
 int	check_walls(t_map_info *info);
-void	flood_fill(t_map_info *info, int x, int y);
+void	flood_fill(t_map_info *info, int x,int y);
 int	count_map_elements(t_map_info *info, t_position *pos_player);
 int	check_map(t_map_info *info, char *filename);
 
