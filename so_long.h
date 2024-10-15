@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 19:27:30 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:09:30 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "./printf/ft_printf.h"
 # include "./minilibx-linux/mlx.h"
-
+# include "./printf/ft_printf.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
@@ -33,23 +32,26 @@ typedef struct s_position
 
 typedef struct s_map_state
 {
+	char	*file;
 	char	**map;
-	int		rows;
-	int		cols;
 	int		collectibles;
 	int		exit;
 	int		player;
 	int		valid;
 }			t_map_info;
 
-//check de map
+// manipulation de structure
 
-int	check_file_exists(char *filename);
-int	check_rectangular(t_map_info *info);
-int	check_walls(t_map_info *info);
-void	flood_fill(t_map_info *info, int x,int y);
-int	count_map_elements(t_map_info *info, t_position *pos_player);
-int	check_map(t_map_info *info, char *filename);
+int			init_struct(t_map_info *map, char *av);
 
+// check de map
+
+int	check_file_exists(t_map_info *map);
+int			check_rectangular(t_map_info *info);
+int			check_walls(t_map_info *info);
+void		flood_fill(t_map_info *info, int x, int y);
+int			count_map_elements(t_map_info *info, t_position *pos_player);
+int			check_map(t_map_info *info);
+int			check_map_extension(t_map_info *info);
 
 #endif
