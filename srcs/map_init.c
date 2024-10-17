@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/15 17:59:25 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:47:59 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	init_struct(t_map_info *map, char *av)
 	if (check_file_exists(map) == 1 || check_map_extension(map) == 1
 		|| init_map(map) == 1)
 		return (1);
-	if (check_rectangular(map) == 1 || check_walls(map) == 1)
+	if (check_rectangular(map) == 1 || check_walls(map) == 1 || count_map_elements(map) == 0)
 		return (1);
 	return (0);
 }

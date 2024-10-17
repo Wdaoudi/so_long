@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/15 18:26:02 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:11:38 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,107 +25,110 @@ int	check_file_exists(t_map_info *map)
 
 int	check_rectangular(t_map_info *info)
 {
-	size_t	width;
+	size_t	column;
 	int		i;
 
 	if (!info->map || !info->map[0])
 		return (1);
-	width = ft_strlen(info->map[0]);
+	column = ft_strlen(info->map[0]);
 	i = 1;
 	while (info->map[i])
 	{
-		if (ft_strlen(info->map[i]) != width)
+		if (ft_strlen(info->map[i]) != column)
 			return (1);
 		i++;
 	}
+	if (i * column < 3 * 5)
+		return (1);
 	return (0);
 }
-
-// int	check_walls(t_map_info *info)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	printf("i = %d\n", i);
-// 	printf("j = %d\n", j);
-// 	while (info->map[i][j])
-// 	{
-// 		if (info->map[i][j] != '1')
-// 			return (1);
-// 		j++;
-// 	}
-// 	printf("i = %d\n", i);
-// 	printf("j = %d\n", j);
-// 	j = j - 2;
-// 	while (info->map[i][j])
-// 	{
-// 		if (info->map[i][j] != '1')
-// 			return (1);
-// 		i++;
-// 	}
-// 	i = i - 1;
-// 	printf("i = %d\n", i);
-// 	printf("j = %d\n", j);
-// 	while (j > 0)
-// 	{
-// 		if (info->map[i][j] != '1')
-// 			return (1);
-// 		j--;
-// 	}
-// 	j = j + 1;
-// 	printf("i = %d\n", i);
-// 	printf("j = %d\n", j);
-// 	while (i > 0)
-// 	{
-// 		if (info->map[i][j] != '1')
-// 			return (1);
-// 		i--;
-// 	}
-// 	i = i + 1;
-// 	printf("i = %d\n", i);
-// 	printf("j = %d\n", j);
-// 	return (0);
-// }
 
 int	check_walls(t_map_info *info)
 {
 	int	i;
 	int	j;
-	int	width;
-	int	height;
+	int	column;
+	int	row;
 
-	height = 0;
-	while (info->map[height])
-		height++;
-	i = 0;
-	printf("%d\n", height);
-	while (i < height)
+	row = 0;
+	while (info->map[row])
+		row++;
+	column = 0;
+	while (info->map[0][column])
+		column++;
+	info->row = row;
+	info->column = column;
+	i = -1;
+	while (++i < row)
 	{
-		j = 0;
-		width = 0;
-		while (info->map[i][j])
-		{
-			if ((i == 0 || i == height - 1) && info->map[i][j] != '1')
-               return( printf("Error: Invalid wall at i=%d, j=%d\n", i, j), 1);			if (i == 0)
-				width++;
-			j++;
-		}
-		if (i > 0 && j != width)
-			return (printf("line %d width: %d\n",i,j),1);
-		i++;
-	}
-	printf("i = %d et j = %d\n", i, j);
-	printf("%d\n", width);
-	i = 1;
-	while (i < height - 1)
-	{
-		if (info->map[i][0] != '1' || info->map[i][width - 1] != '1')
+		j = -1;
+		while (++j < column)
+			if (i == 0 || i == row - 1 || j == 0 || j == column - 1)
+				if (info->map[i][j] != '1')
+					return (1);
+		if (info->map[i][column] != '\0')
 			return (1);
-		i++;
 	}
 	return (0);
+}
+
+int	check_element(char element, t_map_info *info, int i, int j)
+{
+	if (element == 'C')
+		info->collectibles++;
+	else if (element == 'E')
+	{
+		if (info->exit == 0)
+			return (0);
+		info->exit--;
+	}
+	else if (element == 'P')
+	{
+		if (info->player == 0)
+			return (0);
+		info->player--;
+		info->x = j;
+		info->y = i;
+	}
+	else if (element != '0' && element != '1' && element != 'C'
+		&& element != 'E' && element != 'P')
+		return (0);
+	return (1);
+}
+int	count_row_elements(t_map_info *info, int i)
+{
+	int	j;
+
+	j = -1;
+	while (++j < info->column)
+	{
+		if (!check_element(info->map[i][j], info, i, j))
+			return (0);
+	}
+	return (1);
+}
+
+void	init_element_counts(t_map_info *info)
+{
+	info->collectibles = 0;
+	info->exit = 1;
+	info->player = 1;
+}
+
+int	count_map_elements(t_map_info *info)
+{
+	int	i;
+
+	init_element_counts(info);
+	i = -1;
+	while (++i < info->row)
+	{
+		if (!count_row_elements(info, i))
+			return (0);
+	}
+	printf("collectibles = %d, player at position (%d,%d)\n",
+		info->collectibles, info->x, info->y);
+	return (info->collectibles > 0 && info->exit == 0 && info->player == 0);
 }
 
 // void	flood_fill(t_map_info *info, int x, int y)
@@ -143,39 +146,6 @@ int	check_walls(t_map_info *info)
 // 	flood_fill(info, x, y + 1);
 // 	flood_fill(info, x - 1, y);
 // 	flood_fill(info, x, y - 1);
-// }
-
-// int	count_map_elements(t_map_info *info, t_position *pos_player)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	info->collectibles = 0; // comment connaitre le nombre de collectible
-// 	info->exit = 0;
-// 	info->player = 0;
-// 	i = -1;
-// 	while (++i < info->rows)
-// 	{
-// 		j = -1;
-// 		while (++j < info->cols)
-// 		{
-// 			if (info->map[i][j] == 'C')
-// 				info->collectibles++;
-// 			else if (info->map[i][j] == 'E')
-// 				info->exit++;
-// 			else if (info->map[i][j] == 'P')
-// 			{
-// 				info->player++;
-// 				*pos_player = (t_position){i, j};
-// 			}
-// 			else if (info->map[i][j] != '0' && info->map[i][j] != '1'
-// 				&& info->map[i][j] != 'C' && info->map[i][j] != 'E'
-// 				&& info->map[i][j] != 'P')
-// 				return (0);
-// 		}
-// 		printf("collectibles = %d\n", info->collectibles);
-// 	}
-// 	return (info->collectibles > 0 && info->exit == 1 && info->player == 1);
 // }
 
 // int	check_map(t_map_info *info)
