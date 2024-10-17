@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 16:11:38 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:22:47 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,22 +131,22 @@ int	count_map_elements(t_map_info *info)
 	return (info->collectibles > 0 && info->exit == 0 && info->player == 0);
 }
 
-// void	flood_fill(t_map_info *info, int x, int y)
-// {
-// 	// creeer une copie de la map pour ne pas modifier celle de base et gerer les entree a la fin car ne pas valider tant qu on a pas fini le checking
-// 	if (x < 0 || y < 0 || x >= info->cols || y >= info->rows
-// 		|| info->map[x][y] == '1' || info->map[x][y] == 'F')
-// 		return ;
-// 	if (info->map[x][y] == 'C')
-// 		info->collectibles--;
-// 	if (info->map[x][y] == 'E')
-// 		info->exit = 0;
-// 	info->map[x][y] = 'F';
-// 	flood_fill(info, x + 1, y);
-// 	flood_fill(info, x, y + 1);
-// 	flood_fill(info, x - 1, y);
-// 	flood_fill(info, x, y - 1);
-// }
+void	flood_fill(t_map_info *info, int x, int y)
+{
+	// creeer une copie de la map pour ne pas modifier celle de base et gerer les entree a la fin car ne pas valider tant qu on a pas fini le checking
+	if (x < 0 || y < 0 || x >= info->row || y >= info->column
+		|| info->map[x][y] == '1' || info->map[x][y] == 'F')
+		return ;
+	if (info->map[x][y] == 'C')
+		info->collectibles--;
+	if (info->map[x][y] == 'E')
+		info->exit = 0;
+	info->map[x][y] = 'F';
+	flood_fill(info, x + 1, y);
+	flood_fill(info, x, y + 1);
+	flood_fill(info, x - 1, y);
+	flood_fill(info, x, y - 1);
+}
 
 // int	check_map(t_map_info *info)
 // {
