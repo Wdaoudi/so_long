@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/18 19:45:27 by wdaoudi-         ###   ########.fr       */
+/*   Created: 2024/10/18 19:40:44 by wdaoudi-          #+#    #+#             */
+/*   Updated: 2024/10/18 19:41:04 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	t_map_info map;
-	(void)ac;
-	(void)av;
-	// char *filename;
-	// filename = "./maps/maps.ber";
-	// if (ac != 2)
-	//     return (0);
-	if (init_struct(&map, "./maps/maps.ber") == 1) //(init_struct(&map,av[1]) == 1)
-		return (ft_putendl_fd("Invalid map", 2), 1);
-	printf("map valide");
-	return (0);
+	char	*result;
+
+	if (!s1)
+		return (ft_strdup(s2));
+	result = ft_strjoin(s1, s2);
+	free(s1);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 14:28:19 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/14 15:49:33 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:42:15 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*get_next_line(int fd);
 
 /* supp */
+
+char				*ft_strjoin_free(char *s1, char *s2);
 
 #endif

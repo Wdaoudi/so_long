@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/17 20:22:47 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/18 19:43:21 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	check_element(char element, t_map_info *info, int i, int j)
 		info->y = i;
 	}
 	else if (element != '0' && element != '1' && element != 'C'
-		&& element != 'E' && element != 'P')
+			&& element != 'E' && element != 'P')
 		return (0);
 	return (1);
 }
@@ -126,42 +126,38 @@ int	count_map_elements(t_map_info *info)
 		if (!count_row_elements(info, i))
 			return (0);
 	}
-	printf("collectibles = %d, player at position (%d,%d)\n",
-		info->collectibles, info->x, info->y);
 	return (info->collectibles > 0 && info->exit == 0 && info->player == 0);
 }
 
-void	flood_fill(t_map_info *info, int x, int y)
+void	flood_fill(t_map_info *info, char **map_copy, int x, int y)
 {
-	// creeer une copie de la map pour ne pas modifier celle de base et gerer les entree a la fin car ne pas valider tant qu on a pas fini le checking
 	if (x < 0 || y < 0 || x >= info->row || y >= info->column
-		|| info->map[x][y] == '1' || info->map[x][y] == 'F')
+		|| map_copy[x][y] == '1' || map_copy[x][y] == 'F')
 		return ;
-	if (info->map[x][y] == 'C')
-		info->collectibles--;
-	if (info->map[x][y] == 'E')
-		info->exit = 0;
-	info->map[x][y] = 'F';
-	flood_fill(info, x + 1, y);
-	flood_fill(info, x, y + 1);
-	flood_fill(info, x - 1, y);
-	flood_fill(info, x, y - 1);
+	if (map_copy[x][y] == 'C')
+		info->collectibles_reached++;
+	if (map_copy[x][y] == 'E')
+		info->exit_reached = 1;
+	map_copy[x][y] = 'F';
+	flood_fill(info, map_copy, x + 1, y);
+	flood_fill(info, map_copy, x - 1, y);
+	flood_fill(info, map_copy, x, y + 1);
+	flood_fill(info, map_copy, x, y - 1);
 }
 
-// int	check_map(t_map_info *info)
-// {
-// 	t_position	pos_player;
+int	check_map_validity(t_map_info *info)
+{
+	char	**map_copy;
 
-// 	printf("dans check map\n");
-// 	if (check_rectangular(info) == 1 || check_walls(info) == 1
-// 		/*|| count_map_elements(info, &pos_player) == 1*/)
-// 		return (1); // 1 est errreur;
-// 	printf("full check passee\n");
-// 	info->exit = 1;
-// 	flood_fill(info, pos_player.x, pos_player.y);
-// 	if (info->collectibles == 0 && info->exit == 0) // a voir
-// 		return (0);
-// 	// si tout est vrais retourne 0
-// 	else
-// 		return (0);
-// }
+	info->exit = 1;
+	info->exit_reached = 0;
+	info->collectibles_reached = 0;
+	map_copy = create_map_cpy(info);
+	if (!map_copy)
+		return (0);
+	flood_fill(info, map_copy, info->y, info->x);
+	ft_free_tab(map_copy, info);
+	if (is_valid(info) == 0)
+		return (0);
+	return (1);
+}
