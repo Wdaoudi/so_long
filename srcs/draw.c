@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:32:08 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 22:27:35 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:12:10 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	load_images(t_map_info *map)
 											&height);
 	if (!map->player_img)
 		return (cleanup(map), 0);
-	printf("Loading collectible image...\n");
 	map->collectible_img = mlx_xpm_file_to_image(map->mlx.mlx,
 													"assets/collectible.xpm",
 													&width,
