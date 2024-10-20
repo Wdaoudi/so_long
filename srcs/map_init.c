@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/18 19:43:07 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:49:56 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	check_map_extension(t_map_info *info)
 
 int	init_struct(t_map_info *map, char *av)
 {
+	// ft_memset(&map,0,sizeof(t_map_info));
 	map->file = av;
 	if (check_file_exists(map) == 1 || check_map_extension(map) == 1
 		|| init_map(map) == 1)

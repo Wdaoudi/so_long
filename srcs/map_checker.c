@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/18 19:43:21 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:15:13 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	init_element_counts(t_map_info *info)
 	info->collectibles = 0;
 	info->exit = 1;
 	info->player = 1;
+	info->moves = 0;
 }
 
 int	count_map_elements(t_map_info *info)

@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:38:21 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/18 18:41:15 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:28:07 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**create_map_cpy(t_map_info *info)
 	int		i;
 
 	i = 0;
-	map_cpy = malloc(sizeof(char *) * (info->row));
+	map_cpy = malloc(sizeof(char *) * (info->row) + 1);
 	if (!map_cpy)
 		return (NULL);
 	while (i < info->row)
