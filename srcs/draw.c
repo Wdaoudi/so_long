@@ -6,120 +6,45 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:32:08 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 18:26:12 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:27:35 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-// int	load_images(t_map_info *map)
-// {
-// 	int width, height;
-// 	map->wall_img = mlx_xpm_file_to_image(map->mlx.mlx, "../assets/wall.xpm",
-// 			&width, &height);
-// 	map->player_img = mlx_xpm_file_to_image(map->mlx.mlx,"../assets/player.xpm",
-	// 			&width, &height);
-	// 	map->collectible_img = mlx_xpm_file_to_image(map->mlx.mlx,
-	// 													"../assets/collectible.xpm",
-	// 													&width,
-	// 													&height);
-	// 	map->exit_img = mlx_xpm_file_to_image(map->mlx.mlx,"../assets/exit.xpm",
-	// 			&width, &height);
-	// 	map->floor_img = mlx_xpm_file_to_image(map->mlx.mlx,"../assets/floor.xpm",
-	// 			&width, &height);
-	// 	if (!map->wall_img || !map->player_img || !map->collectible_img ||
-	// 		!map->exit_img || !map->floor_img)
-	// 	{
-	//         free_images(map);
-	// 		return (0);
-	// 	}
-	// 	return (1);
-	// }
-int load_images(t_map_info *map)
+int	load_images(t_map_info *map)
 {
-	int width, height;
-    
-	printf("Loading wall image...\n");
-	map->wall_img = mlx_xpm_file_to_image(map->mlx.mlx, "../assets/wall.xpm",
+	int	width;
+	int	height;
+
+	map->wall_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/wall.xpm",
 			&width, &height);
 	if (!map->wall_img)
-	{
-		printf("Failed to load wall image\n");
-		return (0);
-	}
-	printf("Loading player image...\n");
+		return (cleanup(map), 0);
 	map->player_img = mlx_xpm_file_to_image(map->mlx.mlx,
-											"../assets/player.xpm",
+											"assets/player.xpm",
 											&width,
 											&height);
 	if (!map->player_img)
-	{
-		printf("Failed to load player image\n");
-		free_images(map);
-		return (0);
-	}
+		return (cleanup(map), 0);
 	printf("Loading collectible image...\n");
 	map->collectible_img = mlx_xpm_file_to_image(map->mlx.mlx,
-													"../assets/collectible.xpm",
+													"assets/collectible.xpm",
 													&width,
 													&height);
 	if (!map->collectible_img)
-	{
-		printf("Failed to load collectible image\n");
-		free_images(map);
-		return (0);
-	}
-	printf("Loading exit image...\n");
-	map->exit_img = mlx_xpm_file_to_image(map->mlx.mlx, "../assets/exit.xpm",
+		return (cleanup(map), 0);
+	map->exit_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/exit.xpm",
 			&width, &height);
 	if (!map->exit_img)
-	{
-		printf("Failed to load exit image\n");
-		free_images(map);
-		return (0);
-	}
-	printf("Loading floor image...\n");
-	map->floor_img = mlx_xpm_file_to_image(map->mlx.mlx, "../assets/floor.xpm",
+		return (cleanup(map), 0);
+	map->floor_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/floor.xpm",
 			&width, &height);
 	if (!map->floor_img)
-	{
-		printf("Failed to load floor image\n");
-		free_images(map);
-		return (0);
-	}
-	printf("All images loaded successfully\n");
+		return (cleanup(map), 0);
 	return (1);
 }
 
-// void	draw_map(t_map_info *map)
-// {
-// 	int x, y;
-// 	y = 0;
-// 	while (y < map->row)
-// 	{
-// 		x = 0;
-// 		while (x < map->column)
-// 		{
-// 			if (map->map[y][x] == '1')
-// 				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-// 						map->wall_img, x * 32, y * 32);
-// 			else if (map->map[y][x] == '0')
-// 				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-// 						map->floor_img, x * 32, y * 32);
-// 			else if (map->map[y][x] == 'E')
-// 				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-// 						map->exit_img, x * 32, y * 32);
-// 			else if (map->map[y][x] == 'C')
-// 				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-// 						map->collectible_img, x * 32, y * 32);
-// 			else if (map->map[y][x] == 'P')
-// 				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-// 						map->player_img, x * 32, y * 32);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 void	draw_map(t_map_info *map)
 {
 	int x, y;

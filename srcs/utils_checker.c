@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:38:21 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 18:28:07 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:28:48 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**create_map_cpy(t_map_info *info)
 		}
 		i++;
 	}
-	map_cpy[info->row] = NULL;
+	// map_cpy[info->row] = NULL;
 	return (map_cpy);
 }
 

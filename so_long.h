@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 17:37:27 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:40:32 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_map_state
 	int			collectibles_reached;
 	int exit; // == E
 	int			exit_reached;
+	int			exit_x;
+	int			exit_y;
 	int player; // == P
 	int			x;
 	int			y;
@@ -93,5 +95,6 @@ void			free_images(t_map_info *map);
 void			move_player(t_map_info *map, int dx, int dy);
 int				render_frame(t_map_info *map);
 int				key_press(int keycode, t_map_info *map);
+void			cleanup(t_map_info *data);
 
 #endif

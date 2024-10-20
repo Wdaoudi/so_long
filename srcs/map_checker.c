@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 14:55:24 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 15:15:13 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:42:26 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	check_element(char element, t_map_info *info, int i, int j)
 		if (info->exit == 0)
 			return (0);
 		info->exit--;
+		info->exit_x = j;
+		info->exit_y = i;
 	}
 	else if (element == 'P')
 	{
@@ -114,6 +116,8 @@ void	init_element_counts(t_map_info *info)
 	info->exit = 1;
 	info->player = 1;
 	info->moves = 0;
+	info->exit_x = 0;
+	info->exit_y = 0;
 }
 
 int	count_map_elements(t_map_info *info)

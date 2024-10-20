@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:26:31 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 16:21:42 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/20 22:46:02 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int	key_press(int keycode, t_map_info *map)
 
 void	move_player(t_map_info *map, int dx, int dy)
 {
-	int new_x = map->x + dx;
-	int new_y = map->y + dy;
+	int	new_x;
+	int	new_y;
 
+	new_x = map->x + dx;
+	new_y = map->y + dy;
 	if (new_x >= 0 && new_x < map->column && new_y >= 0 && new_y < map->row
 		&& map->map[new_y][new_x] != '1')
 	{
@@ -45,14 +47,17 @@ void	move_player(t_map_info *map, int dx, int dy)
 			ft_printf("GG! You ve completed the level\n");
 			close_window(map);
 		}
-		map->map[map->y][map->x] = '0';
+		if (map->x == map->exit_x && map->y == map->exit_y)
+			map->map[map->y][map->x] = 'E';
+		else
+			map->map[map->y][map->x] = '0';
 		map->x = new_x;
 		map->y = new_y;
 		map->map[map->y][map->x] = 'P';
-
+		if (!(new_x == map->exit_x && map->exit_y))
+			map->map[map->y][map->x] = 'P';
 		draw_map(map);
 		map->moves++;
 		ft_printf("Moves: %d\n", map->moves);
 	}
 }
-
