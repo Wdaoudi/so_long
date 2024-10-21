@@ -1,6 +1,6 @@
 CC = cc
 SRCS = srcs/map_checker.c srcs/map_init.c srcs/so_long.c srcs/utils_checker.c srcs/screen_init.c \
-srcs/handle_keys.c srcs/draw.c 
+srcs/handle_keys.c srcs/draw.c srcs/map_checker2.c srcs/utils_mlx.c
 LIBFT = libft.a
 LIB_DIR = ./libft
 MINI_LIBX_DIR = ./minilibx-linux

@@ -6,102 +6,78 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:32:08 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 23:12:10 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:17:13 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	load_images(t_map_info *map)
+int	load_single_image(void *mlx, void **img, char *path)
 {
 	int	width;
 	int	height;
 
-	map->wall_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/wall.xpm",
-			&width, &height);
-	if (!map->wall_img)
-		return (cleanup(map), 0);
-	map->player_img = mlx_xpm_file_to_image(map->mlx.mlx,
-											"assets/player.xpm",
-											&width,
-											&height);
-	if (!map->player_img)
-		return (cleanup(map), 0);
-	map->collectible_img = mlx_xpm_file_to_image(map->mlx.mlx,
-													"assets/collectible.xpm",
-													&width,
-													&height);
-	if (!map->collectible_img)
-		return (cleanup(map), 0);
-	map->exit_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/exit.xpm",
-			&width, &height);
-	if (!map->exit_img)
-		return (cleanup(map), 0);
-	map->floor_img = mlx_xpm_file_to_image(map->mlx.mlx, "assets/floor.xpm",
-			&width, &height);
-	if (!map->floor_img)
-		return (cleanup(map), 0);
+	*img = mlx_xpm_file_to_image(mlx, path, &width, &height);
+	return (*img != NULL);
+}
+
+int	load_images(t_map_info *map)
+{
+	if (!load_single_image(map->mlx.mlx, &map->wall_img, "assets/wall.xpm")
+		|| !load_single_image(map->mlx.mlx, &map->player_img,
+			"assets/player.xpm") || !load_single_image(map->mlx.mlx,
+			&map->collectible_img, "assets/collectible.xpm")
+		|| !load_single_image(map->mlx.mlx, &map->exit_img, "assets/exit.xpm")
+		|| !load_single_image(map->mlx.mlx, &map->floor_img,
+			"assets/floor.xpm"))
+	{
+		cleanup(map);
+		return (0);
+	}
 	return (1);
+}
+
+void	put_image(t_map_info *map, void *img, int x, int y)
+{
+	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, img, x * 32, y * 32);
+}
+
+void	draw_tile(t_map_info *map, int x, int y)
+{
+	char	tile;
+
+	tile = map->map[y][x];
+	if (tile == '1')
+		put_image(map, map->wall_img, x, y);
+	else if (tile == '0')
+		put_image(map, map->floor_img, x, y);
+	else if (tile == 'E')
+		put_image(map, map->exit_img, x, y);
+	else if (tile == 'C')
+		put_image(map, map->collectible_img, x, y);
+	else if (tile == 'P')
+		put_image(map, map->player_img, x, y);
 }
 
 void	draw_map(t_map_info *map)
 {
-	int x, y;
+	int	x;
+	int	y;
+
 	if (!map || !map->map)
+		return ((void)ft_putendl_fd("Error: map or map->map is NULL", 2));
+	y = -1;
+	while (++y < map->row)
 	{
-		printf("Error: map or map->map is NULL in draw_map\n");
-		return ;
-	}
-	y = 0;
-	while (y < map->row)
-	{
-		x = 0;
-		while (x < map->column)
+		x = -1;
+		while (++x < map->column)
 		{
 			if (y >= map->row || x >= map->column)
 			{
-				printf("Error: Trying to access out of bounds map element at [%d][%d]\n",
-						y,
-						x);
+				ft_putendl_fd("Error: Out of bounds access", 2);
 				return ;
 			}
-			if (map->map[y][x] == '1')
-				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-						map->wall_img, x * 32, y * 32);
-			else if (map->map[y][x] == '0')
-				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-						map->floor_img, x * 32, y * 32);
-			else if (map->map[y][x] == 'E')
-				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-						map->exit_img, x * 32, y * 32);
-			else if (map->map[y][x] == 'C')
-				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-						map->collectible_img, x * 32, y * 32);
-			else if (map->map[y][x] == 'P')
-				mlx_put_image_to_window(map->mlx.mlx, map->mlx.win,
-						map->player_img, x * 32, y * 32);
-			x++;
+			draw_tile(map, x, y);
 		}
-		y++;
 	}
-}
-
-void	free_images(t_map_info *map)
-{
-	if (map->wall_img)
-		mlx_destroy_image(map->mlx.mlx, map->wall_img);
-	if (map->player_img)
-		mlx_destroy_image(map->mlx.mlx, map->player_img);
-	if (map->collectible_img)
-		mlx_destroy_image(map->mlx.mlx, map->collectible_img);
-	if (map->exit_img)
-		mlx_destroy_image(map->mlx.mlx, map->exit_img);
-	if (map->floor_img)
-		mlx_destroy_image(map->mlx.mlx, map->floor_img);
-}
-
-int	render_frame(t_map_info *map)
-{
-	draw_map(map);
-	return (0);
 }

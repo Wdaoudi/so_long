@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 13:40:42 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 22:15:52 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:53:57 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,44 @@ int	init_mlx(t_map_info *data)
 	}
 	return (1);
 }
+
 int	close_window(t_map_info *data)
 {
-    cleanup(data);
-	//futur liberation de memoire prevoir une fonction de clean
+	cleanup(data);
 	exit(0);
 }
-void	cleanup(t_map_info *data)
+
+void	free_map(t_map_info *map)
 {
 	int	i;
 
 	i = 0;
-	free_images(data);
-	if (data->map)
+	if (map->map)
 	{
-		while (i < data->row)
+		while (map->map[i])
 		{
-			free(data->map[i]);
+			free(map->map[i]);
+			map->map[i] = NULL;
 			i++;
 		}
-		free(data->map);
+		free(map->map);
+		map->map = NULL;
 	}
+}
+
+void	cleanup(t_map_info *data)
+{
 	if (data->mlx.win)
+	{
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+		data->mlx.win = NULL;
+	}
+	free_images(data);
 	if (data->mlx.mlx)
 	{
 		mlx_destroy_display(data->mlx.mlx);
 		free(data->mlx.mlx);
+		data->mlx.mlx = NULL;
 	}
+	free_map(data);
 }

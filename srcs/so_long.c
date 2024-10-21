@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 22:29:30 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:53:33 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,15 @@
 
 int	main(int ac, char **av)
 {
-	t_map_info map;
+	t_map_info	map;
 
-	(void)ac;
-	(void)av;
-	// if (ac != 2)
-	//     return (0);
-	//(init_struct(&map,av[1]) == 1)
-	if (init_struct(&map, "./maps/maps.ber") == 1)
+	if (ac != 2)
+		return (0);
+	if (init_struct(&map, av[1]) == 1)
 		return (ft_putendl_fd("Invalid map", 2), 1);
-
 	if (!init_mlx(&map) || !map.mlx.mlx || !map.mlx.win)
-		return (ft_putendl_fd("Error: Failed to initialize MLX or create window",
-								2),
-				cleanup(&map),
-				1);
-
+		return (ft_putendl_fd("Error: Failed to initialize MLX", 2),
+			cleanup(&map), 1);
 	if (!load_images(&map))
 		return (cleanup(&map), ft_putendl_fd("Error: Failed to load images", 2),
 			1);

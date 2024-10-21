@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 22:40:32 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:19:32 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ typedef struct s_map_state
 {
 	char		*file;
 	char		**map;
-	int row; // ligne donc map[row][column] == map[y][x]
+	int			row;
 	int			column;
 
-	int collectibles; // == C
+	int			collectibles;
 	int			collectibles_reached;
-	int exit; // == E
+	int			exit;
 	int			exit_reached;
 	int			exit_x;
 	int			exit_y;
-	int player; // == P
+	int			player;
 	int			x;
 	int			y;
 	int			valid;
@@ -84,8 +84,9 @@ int				check_map_validity(t_map_info *info);
 char			**create_map_cpy(t_map_info *info);
 void			ft_free_tab(char **map, t_map_info *info);
 int				is_valid(t_map_info *map);
+void			free_failure(t_map_info *map);
 
-//minilibx associated function
+// minilibx associated function
 
 int				init_mlx(t_map_info *data);
 int				close_window(t_map_info *data);
@@ -96,5 +97,9 @@ void			move_player(t_map_info *map, int dx, int dy);
 int				render_frame(t_map_info *map);
 int				key_press(int keycode, t_map_info *map);
 void			cleanup(t_map_info *data);
+void			free_map(t_map_info *map);
+void			draw_tile(t_map_info *map, int x, int y);
+void			put_image(t_map_info *map, void *img, int x, int y);
+int				load_single_image(void *mlx, void **img, char *path);
 
 #endif

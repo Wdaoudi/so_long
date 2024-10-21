@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:38:21 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/20 22:28:48 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:04:37 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**create_map_cpy(t_map_info *info)
 	int		i;
 
 	i = 0;
-	map_cpy = malloc(sizeof(char *) * (info->row) + 1);
+	map_cpy = malloc(sizeof(char *) * (info->row + 1));
 	if (!map_cpy)
 		return (NULL);
 	while (i < info->row)
@@ -33,7 +33,7 @@ char	**create_map_cpy(t_map_info *info)
 		}
 		i++;
 	}
-	// map_cpy[info->row] = NULL;
+	map_cpy[i] = NULL;
 	return (map_cpy);
 }
 
@@ -59,4 +59,19 @@ int	is_valid(t_map_info *map)
 		|| map->exit_reached != map->exit)
 		return (0);
 	return (1);
+}
+
+int	key_press(int keycode, t_map_info *map)
+{
+	if (keycode == 65307)
+		close_window(map);
+	else if (keycode == 119 || keycode == 65362)
+		move_player(map, 0, -1);
+	else if (keycode == 115 || keycode == 65364)
+		move_player(map, 0, 1);
+	else if (keycode == 97 || keycode == 65361)
+		move_player(map, -1, 0);
+	else if (keycode == 100 || keycode == 65363)
+		move_player(map, 1, 0);
+	return (0);
 }
