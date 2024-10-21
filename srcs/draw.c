@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:32:08 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 17:01:32 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:39:49 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	load_images(t_map_info *map)
 void	put_image(t_map_info *map, void *img, int x, int y)
 {
 	mlx_put_image_to_window(map->mlx.mlx, map->mlx.win, img, x * 32, y * 32);
+	//passer en brut de decalage bas et droite
 }
 
 void	draw_tile(t_map_info *map, int x, int y)

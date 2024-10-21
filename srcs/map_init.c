@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 18:41:04 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:46:50 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_map(t_map_info *map)
 	while (line != NULL)
 	{
 		if (line[0] == '\n')
-			return(1);
+			return (1);
 		tab = ft_strjoin_free(tab, line);
 		free(line);
 		line = get_next_line(fd);
@@ -56,14 +56,24 @@ int	init_struct(t_map_info *map, char *av)
 {
 	ft_memset(map, 0, sizeof(t_map_info));
 	map->file = av;
-	if (check_file_exists(map) == 1 || check_map_extension(map) == 1
-		|| init_map(map) == 1)
-		return (free_failure(map), 1);
-	if (check_rectangular(map) == 1 || check_walls(map) == 1
-		|| count_map_elements(map) == 0)
-		return (free_failure(map), 1);
+	if (check_file_exists(map) == 1 || check_map_extension(map) == 1)
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Invalid files", 2), 1);
+	if (init_map(map) == 1)
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Invalid map", 2), 1);
+	if (check_rectangular(map) == 1)
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Map is not rectangular", 2), 1);
+	if (check_walls(map) == 1)
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Invalid walls", 2), 1);
+	if (count_map_elements(map) == 0)
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Invalid Elements", 2), 1);
 	if (check_map_validity(map) == 0)
-		return (free_failure(map), 1);
+		return (free_failure(map), ft_putendl_fd("Error", 2),
+			ft_putendl_fd("Invalid map", 2), 1);
 	return (0);
 }
 
@@ -75,5 +85,3 @@ void	free_failure(t_map_info *map)
 		map->map = NULL;
 	}
 }
-
-

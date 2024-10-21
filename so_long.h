@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 14:19:32 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:32:42 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define TILE_SIZE 32
+
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 1000
 
 typedef struct s_mlx_data
 {
@@ -85,6 +87,7 @@ char			**create_map_cpy(t_map_info *info);
 void			ft_free_tab(char **map, t_map_info *info);
 int				is_valid(t_map_info *map);
 void			free_failure(t_map_info *map);
+int				check_screen_size(t_map_info *map);
 
 // minilibx associated function
 

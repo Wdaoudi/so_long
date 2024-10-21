@@ -6,23 +6,42 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 17:02:12 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 23:33:10 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+int	check_screen_size(t_map_info *map)
+{
+	int	screen_width;
+	int	screen_height;
+	int	window_width;
+	int	window_height;
+
+	mlx_get_screen_size(map->mlx.mlx, &screen_width, &screen_height);
+	window_width = map->column * TILE_SIZE;
+	window_height = map->row * TILE_SIZE;
+	if (window_width > screen_width || window_height > screen_height)
+	{
+		ft_putendl_fd("Error: Map is too large for the screen", 2);
+		return (0);
+	}
+	return (1);
+}
 
 int	main(int ac, char **av)
 {
 	t_map_info	map;
 
 	if (ac != 2)
-		return (ft_putendl_fd("Not enough argument", 2), 1);
+		return (ft_putendl_fd("Error: Not enough argument",
+								2),
+				1);
 	if (init_struct(&map, av[1]) == 1)
-		return (ft_putendl_fd("Invalid map", 2), 1);
+		return (1);
 	if (!init_mlx(&map) || !map.mlx.mlx || !map.mlx.win)
-		return (ft_putendl_fd("Error: Failed to initialize MLX", 2),
-			cleanup(&map), 1);
+		return (cleanup(&map), 1);
 	if (!load_images(&map))
 		return (cleanup(&map), ft_putendl_fd("Error: Failed to load images", 2),
 			1);
