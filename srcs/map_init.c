@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 13:56:23 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:41:04 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	init_map(t_map_info *map)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		if (line[0] == '\n')
+			return(1);
 		tab = ft_strjoin_free(tab, line);
 		free(line);
 		line = get_next_line(fd);
@@ -73,3 +75,5 @@ void	free_failure(t_map_info *map)
 		map->map = NULL;
 	}
 }
+
+

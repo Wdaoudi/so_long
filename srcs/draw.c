@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:32:08 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 14:17:13 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:01:32 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void	draw_tile(t_map_info *map, int x, int y)
 	else if (tile == '0')
 		put_image(map, map->floor_img, x, y);
 	else if (tile == 'E')
+	{
 		put_image(map, map->exit_img, x, y);
+		if (x == map->x && y == map->y)
+			put_image(map, map->player_img, x, y);
+	}
 	else if (tile == 'C')
 		put_image(map, map->collectible_img, x, y);
 	else if (tile == 'P')

@@ -1,47 +1,44 @@
 CC = cc
 SRCS = srcs/map_checker.c srcs/map_init.c srcs/so_long.c srcs/utils_checker.c srcs/screen_init.c \
-srcs/handle_keys.c srcs/draw.c srcs/map_checker2.c srcs/utils_mlx.c
-LIBFT = libft.a
-LIB_DIR = ./libft
-MINI_LIBX_DIR = ./minilibx-linux
-MINI_LIBX = libmlx.a
-PRINTF_DIR = ./ft_printf
+       srcs/handle_keys.c srcs/draw.c srcs/map_checker2.c srcs/utils_mlx.c
+LIBFT = libft/libft.a
+MINI_LIBX = minilibx-linux/libmlx.a
+PRINTF = ft_printf/libftprintf.a
 OBJS_DIR = objs/
 OBJS = $(SRCS:srcs/%.c=$(OBJS_DIR)%.o)
 CFLAGS = -Wall -Werror -Wextra -g3
 NAME = so_long
 
-all: $(MINI_LIBX) $(LIBFT) $(PRINTF_DIR)/libftprintf.a $(NAME)
+all: $(NAME)
 
-$(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+$(NAME): $(OBJS) $(LIBFT) $(MINI_LIBX) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L./libft -lft -L./minilibx-linux -lmlx -L./ft_printf -lftprintf -lX11 -lXext
 
 $(OBJS_DIR)%.o: srcs/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
 $(LIBFT):
-	make -C $(LIB_DIR)
+	$(MAKE) -C libft
 
 $(MINI_LIBX):
-	make -C $(MINI_LIBX_DIR)
+	$(MAKE) -C minilibx-linux
 
-$(PRINTF_DIR)/libftprintf.a:
-	make -C $(PRINTF_DIR)
-
-$(NAME): $(OBJS) $(LIBFT) $(MINI_LIBX) $(PRINTF_DIR)/libftprintf.a
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIB_DIR) -lft -L$(MINI_LIBX_DIR) -lmlx -L$(PRINTF_DIR) -lftprintf -lX11 -lXext
+$(PRINTF):
+	$(MAKE) -C ft_printf
 
 clean:
-	rm -f $(OBJS)
-	make clean -C $(LIB_DIR)
-	make clean -C $(MINI_LIBX_DIR)
-	make clean -C $(PRINTF_DIR)
+	rm -rf $(OBJS_DIR)
+	$(MAKE) -C libft clean
+	$(MAKE) -C minilibx-linux clean
+	$(MAKE) -C ft_printf clean
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C $(LIB_DIR)
-	make clean -C $(MINI_LIBX_DIR)
-	make fclean -C $(PRINTF_DIR)
+	$(MAKE) -C libft fclean
+	$(MAKE) -C ft_printf fclean
 
 re: fclean all
 

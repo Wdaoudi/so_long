@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 13:53:33 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:02:12 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_map_info	map;
 
 	if (ac != 2)
-		return (0);
+		return (ft_putendl_fd("Not enough argument", 2), 1);
 	if (init_struct(&map, av[1]) == 1)
 		return (ft_putendl_fd("Invalid map", 2), 1);
 	if (!init_mlx(&map) || !map.mlx.mlx || !map.mlx.win)

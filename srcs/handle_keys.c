@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:26:31 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 14:05:16 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:01:49 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static void	update_player_position(t_map_info *map, int new_x, int new_y)
 		map->map[map->y][map->x] = '0';
 	map->x = new_x;
 	map->y = new_y;
-	if (!(new_x == map->exit_x && new_y == map->exit_y))
+	if (new_x == map->exit_x && new_y == map->exit_y)
+		map->map[map->y][map->x] = 'E';
+	else
 		map->map[map->y][map->x] = 'P';
 }
 

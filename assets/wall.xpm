@@ -3,7 +3,7 @@ static char *wall[] = {
 /* columns rows colors chars-per-pixel */
 "8 8 2 1 ",
 "  c None",
-". c Green",
+". c DarkGreen",
 /* pixels */
 "        ",
 " ...... ",
