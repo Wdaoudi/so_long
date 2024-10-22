@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:39 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:29:32 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:07:41 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,24 @@ char	*get_next_line(int fd)
 	static char	*left_str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+	{
+		if (left_str)
+		{
+			free(left_str);
+			left_str = NULL;
+		}
+		return (NULL);
+	}
 	left_str = ft_read_to_left_str(fd, left_str);
 	if (!left_str)
 		return (NULL);
 	line = ft_get_line(left_str);
 	left_str = ft_new_left_str(left_str);
+	if (!line && left_str)
+	{
+		free(left_str);
+		left_str = NULL;
+	}
 	return (line);
 }
 

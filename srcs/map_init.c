@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/22 14:55:46 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:02:47 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,48 @@ int	init_map(t_map_info *map)
 	int		fd;
 	char	*line;
 	char	*tab;
+	char	*temp;
 
 	tab = NULL;
 	fd = open(map->file, O_RDONLY);
 	if (fd == -1)
 		return (1);
 	line = get_next_line(fd);
+	if (!line)
+		return (close(fd),get_next_line(-1), 1);
 	while (line != NULL)
 	{
 		if (line[0] == '\n')
+		{
+			free(line);
+			if (tab)
+				free(tab);
+			close(fd);
+			get_next_line(-1);
 			return (1);
-		tab = ft_strjoin_free(tab, line);
+		}
+		temp = ft_strjoin_free(tab, line);
+		if(!temp)
+		{
+			free(line);
+			if (tab)
+				free(tab);
+			close(fd);
+			get_next_line(-1);
+			return (1);
+		}
 		free(line);
+		tab = temp;
 		line = get_next_line(fd);
 	}
 	close(fd);
 	get_next_line(-1);
+	if (!tab)
+		return (1);
 	map->map = ft_split(tab, '\n');
-	if (!map->map)
-		return (free(tab),1);
 	free(tab);
+	if (!map->map)
+		return (1);
 	return (0);
 }
 
@@ -79,7 +101,7 @@ int	init_struct(t_map_info *map, char *av)
 
 void	free_failure(t_map_info *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map->map)
