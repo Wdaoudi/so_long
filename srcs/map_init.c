@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:14:45 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 22:46:50 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:55:46 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_map(t_map_info *map)
 	get_next_line(-1);
 	map->map = ft_split(tab, '\n');
 	if (!map->map)
-		return (free(tab), 1);
+		return (free(tab),1);
 	free(tab);
 	return (0);
 }
@@ -79,9 +79,17 @@ int	init_struct(t_map_info *map, char *av)
 
 void	free_failure(t_map_info *map)
 {
+	int i;
+
+	i = 0;
 	if (map->map)
 	{
-		ft_free_tab(map->map, map);
+		while (map->map[i])
+		{
+			free(map->map[i]);
+			i++;
+		}
+		free(map->map);
 		map->map = NULL;
 	}
 }

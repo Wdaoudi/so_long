@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:16 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 23:33:10 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:51:42 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 								2),
 				1);
 	if (init_struct(&map, av[1]) == 1)
-		return (1);
+		return (cleanup(&map),1);
 	if (!init_mlx(&map) || !map.mlx.mlx || !map.mlx.win)
 		return (cleanup(&map), 1);
 	if (!load_images(&map))
