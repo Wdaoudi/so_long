@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 13:40:42 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/21 23:33:54 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:24:19 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	init_mlx(t_map_info *data)
 		return (0);
 	}
 	if (!check_screen_size(data))
-		return(0);
+		return (0);
 	data->mlx.win = mlx_new_window(data->mlx.mlx, data->column * TILE_SIZE,
 			data->row * TILE_SIZE, "So Long");
 	if (!data->mlx.win)

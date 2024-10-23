@@ -6,7 +6,7 @@
 /*   By: wdaoudi- <wdaoudi-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:46:11 by wdaoudi-          #+#    #+#             */
-/*   Updated: 2024/10/22 14:57:08 by wdaoudi-         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:24:06 by wdaoudi-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ int				check_map_extension(t_map_info *info);
 int				check_map(t_map_info *info);
 void			flood_fill(t_map_info *info, char **map_copy, int x, int y);
 int				check_map_validity(t_map_info *info);
+
+// utils racourcissement
+char			*read_map_content(int fd);
+int				create_map_array(t_map_info *map, char *tab);
+char			*process_line(char *line, char *tab);
+int				cleanup_and_return(char *line, char *tab, int fd);
 
 // utils check
 
